@@ -1,0 +1,61 @@
+#copied jet matching parameter from: https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/SUS-RunIIFall18wmLHEGS-00013/0
+#https://github.com/cms-sw/cmssw/blob/master/Configuration/Generator/python/Pythia8CommonSettings_cfi.py
+#https://github.com/cms-sw/cmssw/blob/master/Configuration/Generator/python/PSweightsPythia/PythiaPSweightsSettings_cfi.py
+#https://github.com/cms-sw/cmssw/blob/master/Configuration/Generator/python/MCTunes2017/PythiaCP5Settings_cfi.py
+# and jet matching, which is pasted below
+
+
+
+! 1) Settings used in the main program.
+
+Main:numberOfEvents = 20000         ! number of events to generate
+Main:timesAllowErrors = 50          ! how many aborts before run stops
+
+! 2) Settings related to output in init(), next() and stat().
+
+Init:showChangedSettings = on      ! list changed settings
+Init:showChangedParticleData = off ! list changed particle data
+Next:numberCount = 100             ! print message every n events
+Next:numberShowInfo = 1            ! print event information n times
+Next:numberShowProcess = 1         ! print process record n times
+Next:numberShowEvent = 0           ! print event record n times
+
+! 3) Set the input LHE file
+
+Beams:frameType = 4
+#Beams:LHEF = examples/Pythia8/events.lhe   
+#Beams:LHEF =/Users/christinawang/programs/pythia8235/test.lhe 
+Beams:LHEF=/Users/christinawang/Desktop/Caltech/Research/LLP/HNL/mg5_grid_1j/HNL_GRID_tau/HNL_GRID_tau-4-2e-06/Events/run_01/unweighted_events.lhe.gz
+! 4) Beam parameter settings. Values below agree with default ones.
+Beams:idA = 2212                   ! first beam, p = 2212, pbar = -2212
+Beams:idB = 2212                   ! second beam, p = 2212, pbar = -2212
+Beams:eCM = 13000.                 ! CM energy of collision
+
+! 5) Switch on/off the key event generation steps.
+#default is on for all
+#PartonLevel:MPI = off              ! no multiparton interactions
+#PartonLevel:ISR = off              ! no initial-state radiation
+#PartonLevel:FSR = off              ! no final-state radiation
+#HadronLevel:Hadronize = off        ! no hadronization
+#HadronLevel:Decay = off            ! no decays
+
+! 6) Other settings. Can be expanded as desired.
+#Tune:preferLHAPDF = off            ! use internal PDFs when LHAPDF not linked
+#Tune:pp = 5                        ! default
+
+! 7) Jet matching
+
+JetMatching:setMad = off
+JetMatching:scheme = 1
+JetMatching:merge = on
+JetMatching:jetAlgorithm = 2
+JetMatching:etaJetMax = 5.
+JetMatching:coneRadius = 1.
+JetMatching:slowJetPower = 1
+JetMatching:qCut = 19. #this is the actual merging scale
+JetMatching:nQmatch = 5 #4 corresponds to 4-flavour scheme (no matching of b-quarks), 5 for 5-flavour scheme
+JetMatching:nJetMax = 4 #number of partons in born matrix element for highest multiplicity
+JetMatching:doShowerKt = off #off for MLM matching, turn on for shower-kT matching
+
+
+
